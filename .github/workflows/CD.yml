@@ -27,12 +27,13 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME | lower }}:latest
+     env:
+         -  name: Build and push Docker image
+  uses: docker/build-push-action@v5
+  with:
+    context: .
+    push: true
+    tags: ${{ env.REGISTRY }}/${{ github.repository | lower }}:latest
 
   # JOB 3: ENTREGAR (O carteiro)
   deploy:
